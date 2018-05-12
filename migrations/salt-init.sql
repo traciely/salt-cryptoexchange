@@ -38,12 +38,12 @@ CREATE TABLE currencies (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SHOW WARNINGS;
 
-DROP TABLE IF NOT EXISTS user_currency_totals;
+DROP TABLE IF EXISTS user_currency_totals;
 CREATE TABLE user_currency_totals (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `user_id` int(10) NOT NULL,
   `currency_id` int(10) NOT NULL,
-  `amount` int(10) NOT NULL,
+  `amount` decimal(65, 10) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
