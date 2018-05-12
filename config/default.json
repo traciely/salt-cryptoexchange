@@ -1,0 +1,8 @@
+{
+  "database": {
+    "host": "localhost",
+    "name": "salt"
+  },
+  "fsym": "BTC,LCT,DOGE,XMR",
+  "tsym": "USD,BTC"
+}

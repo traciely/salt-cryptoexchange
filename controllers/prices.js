@@ -1,10 +1,8 @@
 let prices = require('../models/prices.js');
-
-const FSYM = ['BTC','LCT','DOGE','XMR'];
-const TSYM = ['USD', 'BTC'];
+let config = require('config');
 
 exports.getCurrentPrices = function getCurrentPrices(req, res, next) {
-  prices.getCurrentPrices(FSYM.join(','), TSYM.join(','))
+  prices.getCurrentPrices(config.fsym, config.tsym)
   .then(currentPrices => {
     res.status(200).send(currentPrices);
   })
