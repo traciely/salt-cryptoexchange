@@ -7,9 +7,12 @@
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `firstname` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `ux_name` (`name`)
+  UNIQUE KEY `ux_name` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SHOW WARNINGS;
 
@@ -49,4 +52,11 @@ CREATE TABLE user_currency_totals (
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_user_currency` (`user_id`, `currency_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+SHOW WARNINGS;
+
+INSERT INTO currencies (`name`,`fsym`) VALUES ("US Dollar", "USD");
+INSERT INTO currencies (`name`, `fsym`) VALUES ("Bitcoin", "BTC");
+INSERT INTO currencies (`name`, `fsym`) VALUES ("Litecoin", "LTC");
+INSERT INTO currencies (`name`, `fsym`) VALUES ("Dogecoin", "DOGE");
+INSERT INTO currencies (`name`, `fsym`) VALUES ("Monero", "XMR");
 SHOW WARNINGS;
