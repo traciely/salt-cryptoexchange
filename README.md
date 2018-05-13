@@ -43,10 +43,26 @@ Running locally need to set up new DB for salt and 'salt' user
 ```bash
 mysql -u root -p -e "CREATE USER 'salt'@'localhost' IDENTIFIED BY 'salt';"
 mysql -u root -p -e "GRANT ALL PRIVILEGES ON *.* TO 'salt'@'localhost';"
+mysql -u salt -p -e "CREATE DATABASE salt"
 ```
 
 ## Testing
 ```sh
    # run all tests
    npm test
+```
+
+A test DB is used specificially for testing
+```bash
+mysql -u salt -p -e "CREATE DATABASE salttest;"
+mysql -u salt -p salttest < migrations/salt-init.sql
+```
+
+## Running Locally
+
+A DB needs to be set up, default name for db is salt
+```bash
+mysql -u salt -p -e "CREATE DATABASE salt;"
+mysql -u salt -p salt < migrations/salt-init.sql
+
 ```
