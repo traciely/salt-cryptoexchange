@@ -4,7 +4,7 @@
   "description": "Backend Service for Virtual Cryptoexchange",
   "main": "index.js",
   "scripts": {
-    "test": "test",
+    "test": "NODE_ENV=test mocha",
     "start": "node app.js"
   },
   "repository": {
@@ -19,9 +19,16 @@
   "homepage": "https://github.com/traciely/salt-cryptoexchange-service#readme",
   "dependencies": {
     "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
     "config": "^1.30.0",
     "express": "^4.16.3",
-    "mysql": "^2.15.0",
+    "promise-mysql": "^3.2.1",
     "superagent": "^3.8.3"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "mocha": "^5.1.1",
+    "sinon": "^5.0.7"
   }
 }

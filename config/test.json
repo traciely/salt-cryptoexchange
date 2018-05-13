@@ -1,0 +1,7 @@
+{
+  "database": {
+    "user": "salt",
+    "password": "salt",
+    "name": "salttest"
+  }
+}

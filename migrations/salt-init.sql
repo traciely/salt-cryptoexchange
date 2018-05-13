@@ -10,7 +10,6 @@ CREATE TABLE users (
   `username` varchar(255) NOT NULL,
   `firstname` varchar(255) NOT NULL,
   `lastname` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_name` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

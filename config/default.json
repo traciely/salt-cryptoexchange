@@ -4,5 +4,6 @@
     "name": "salt"
   },
   "fsym": "BTC,LCT,DOGE,XMR",
-  "tsym": "USD,BTC"
+  "tsym": "USD,BTC",
+  "startingAmount": 10000.00
 }

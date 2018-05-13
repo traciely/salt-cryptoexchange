@@ -1,32 +1,17 @@
-const mysql = require('mysql');
+const mysql = require('promise-mysql');
 const Promise = require('bluebird');
 const config = require('config');
 
-export default class Database {
-  constructor() {
-    this.connection = mysql.createConnection({
-      host: config.database.host,
-      user: config.database.user,
-      password: config.database.password,
-      database: config.database.name
-    });
-  }
+let pool = mysql.createPool({
+  host: config.database.host,
+  user: config.database.user,
+  password: config.database.password,
+  database: config.database.name,
+  connectionLimit: 10
+});
 
-  query(sql, args) {
-    return new Promise((resolve, reject) => {
-      this.connection.query(sql, args, (err, rows) => {
-        if(err) return reject(err);
-        return resolve(rows);
-      });
-    });
-  }
-
-  close() {
-    return new Promise((resolve, reject) => {
-      this.connection.end(err => {
-        if(err) return reject(err);
-        return resolve();
-      });
-    });
-  }
+exports.getConnection = function getConnection() {
+  return pool.getConnection().disposer(connection => {
+    pool.releaseConnection(connection);
+  });
 }
