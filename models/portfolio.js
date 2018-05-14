@@ -15,7 +15,10 @@ exports.getPortfolioByUserId = function getPortfolioByUserId(userId) {
     ];
     return Promise.all(promises)
     .then(results => {
-      let returnPortfolio = [];
+      let returnPortfolio = {
+        TotalInUSD: 0
+        items = []
+      };
       let portfolioResults = results[0];
       let prices = results[1];
       portfolioResults.forEach(item => {
@@ -26,7 +29,8 @@ exports.getPortfolioByUserId = function getPortfolioByUserId(userId) {
           amount: item.amount,
           BTCPrice: item.amount * prices[item.fsym].BTC
         };
-        returnPortfolio.push(portfolioItem);
+        returnPortfolio.TotalInUSD += item.amount * prices[item.fsym].USD;
+        returnPortfolio.items.push(portfolioItem);
       });
       return Promise.resolve(returnPortfolio);
     })

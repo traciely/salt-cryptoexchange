@@ -55,43 +55,47 @@ describe('Portfolio Model Tests', function() {
     it("should return a json object for a user", function() {
       return portfolioModel.getPortfolioByUserId(1)
       .then(portfolioResults => {
-        return expect(portfolioResults).to.deep.members([
-          {
-            name: 'US Dollar',
-            fsym: 'USD',
-            id: 1,
-            amount: 10000.00,
-            BTCPrice: 10000.00 * 0.0001157
-          },
-          {
-            name: 'Bitcoin',
-            fsym: 'BTC',
-            id: 2,
-            amount: 0,
-            BTCPrice: 0
-          },
-          {
-            name: 'Litecoin',
-            fsym: 'LCT',
-            id: 3,
-            amount: 0,
-            BTCPrice: 0
-          },
-          {
-            name: 'Dogecoin',
-            fsym: 'DOGE',
-            id: 4,
-            amount: 0,
-            BTCPrice: 0
-          },
-          {
-            name: 'Monero',
-            fsym: 'XMR',
-            id: 5,
-            amount: 0,
-            BTCPrice: 0
-          }
-        ]);
+        let expectedResults = {
+          totalInUSD: 10000.00,
+          items: [
+            {
+              name: 'US Dollar',
+              fsym: 'USD',
+              id: 1,
+              amount: 10000.00,
+              BTCPrice: 10000.00 * 0.0001157
+            },
+            {
+              name: 'Bitcoin',
+              fsym: 'BTC',
+              id: 2,
+              amount: 0,
+              BTCPrice: 0
+            },
+            {
+              name: 'Litecoin',
+              fsym: 'LCT',
+              id: 3,
+              amount: 0,
+              BTCPrice: 0
+            },
+            {
+              name: 'Dogecoin',
+              fsym: 'DOGE',
+              id: 4,
+              amount: 0,
+              BTCPrice: 0
+            },
+            {
+              name: 'Monero',
+              fsym: 'XMR',
+              id: 5,
+              amount: 0,
+              BTCPrice: 0
+            }
+          ]
+        };
+        return expect(portfolioResults).to.deep.equal(expectedResults);
       })
       .catch(function(err) {
         return Promise.reject();
