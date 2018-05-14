@@ -62,7 +62,7 @@ exports.getOrders = function getOrders(req, res, next) {
   .then(results => {
     return res.status(200).json(results);
   })
-  catch(err => {
+  .catch(err => {
     return res.status(500).send(err);
   });
 }

@@ -1,7 +1,7 @@
 let config = require('config');
 let Promise = require('bluebird');
 let DB = require('./db.js');
-let currencies = require('./currencies.js');
+let currenciesModel = require('./currencies.js');
 
 exports.getUserByUsername = function getUserByUsername(username) {
   return Promise.using(DB.getConnection(), connection => {
@@ -52,7 +52,7 @@ exports.createUser = function createUser(params) {
       return connection.query('INSERT INTO users SET ?', params)
       .then(userResult => {
         let userId = userResult.insertId;
-        return currencies.getCurrencies()
+        return currenciesModel.getCurrencies()
         .then(currencyResults => {
           let currencyInserts = [];
           currencyResults.forEach(currency => {

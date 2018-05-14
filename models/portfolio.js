@@ -1,18 +1,17 @@
 let Promise = require('bluebird');
 let DB = require('./db.js');
-let prices = require('./prices.js');
+let pricesModel = require('./prices.js');
 
 exports.getPortfolioByUserId = function getPortfolioByUserId(userId) {
-  console.log(userId);
   return Promise.using(DB.getConnection(), connection => {
-    let getPortfolioSQL = `SELECT c.name, c.fsym, uct.amount
+    let getPortfolioSQL = `SELECT c.name, c.fsym, uct.id, uct.amount
       FROM user_currency_totals uct
       JOIN currencies c ON c.id = uct.currency_id
       WHERE uct.user_id = ?`;
 
     let promises = [
       connection.query(getPortfolioSQL, userId),
-      prices.getCurrentPrices()
+      pricesModel.getCurrentPrices()
     ];
     return Promise.all(promises)
     .then(results => {
@@ -23,6 +22,7 @@ exports.getPortfolioByUserId = function getPortfolioByUserId(userId) {
         let portfolioItem = {
           name: item.name,
           fsym: item.fsym,
+          currency_id: item.id,
           amount: item.amount,
           BTCPrice: item.amount * prices[item.fsym].BTC
         };
