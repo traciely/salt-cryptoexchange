@@ -7,12 +7,16 @@ exports.getUserByUsername = function getUserByUsername(username) {
   return Promise.using(DB.getConnection(), connection => {
     return connection.query('SELECT id, username, firstname, lastname FROM users WHERE username = ? limit 1;', username)
     .then((resultRows) => {
-      return Promise.resolve({
-            id: resultRows[0].id,
-            username: resultRows[0].username,
-            firstName: resultRows[0].firstname,
-            lastName: resultRows[0].lastname
-          });
+      let returnResult = {};
+      if(resultRows.length) {
+        returnResult = {
+          id: resultRows[0].id,
+          username: resultRows[0].username,
+          firstName: resultRows[0].firstname,
+          lastName: resultRows[0].lastname
+        };
+      }
+      return Promise.resolve(returnResult);
     })
     .catch(err => {
       return Promise.reject(err);
@@ -24,12 +28,19 @@ exports.getUserById = function getUserById(id) {
   return Promise.using(DB.getConnection(), connection => {
     return connection.query('SELECT id, username, firstname, lastname FROM users WHERE id = ? limit 1;', id)
     .then((resultRows) => {
-      return Promise.resolve({
-        id: resultRows[0].id,
-        username: resultRows[0].username,
-        firstName: resultRows[0].firstname,
-        lastName: resultRows[0].lastname
-      });
+      let returnResult = {};
+      if(resultRows.length) {
+        returnResult = {
+          id: resultRows[0].id,
+          username: resultRows[0].username,
+          firstName: resultRows[0].firstname,
+          lastName: resultRows[0].lastname
+        };
+      }
+      return Promise.resolve(returnResult);
+    })
+    .catch(err => {
+      return Promise.reject(err);
     });
   });
 }
@@ -76,7 +87,7 @@ exports.createUser = function createUser(params) {
       .catch(userErr => {
         return connection.rollback()
         .then(() => {
-          if(userErr.code == 'ER_DUP_ENRY') {
+          if(userErr.code === 'ER_DUP_ENTRY') {
             return exports.getUserByUsername(params.username);
           }
           return Promise.reject(userErr);          

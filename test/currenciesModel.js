@@ -18,7 +18,7 @@ describe('Currencies Model Tests', () => {
         },
         {
           id: 3,
-          fsym: 'LTC'
+          fsym: 'LCT'
         },
         {
           id: 4,
@@ -32,7 +32,10 @@ describe('Currencies Model Tests', () => {
 
       currencies.getCurrencies()
       .then(currencyResults => {
-        expect(results).to.have.deep.members(currencyResults);
+        return expect(currencyResults).to.have.deep.members(results);
+      })
+      .catch(function(err) {
+        return Promise.reject();
       });
     });
   });

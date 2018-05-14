@@ -7,7 +7,7 @@ let users = require('../models/users.js');
 let currencies = require('../models/currencies.js');
 
 
-describe('Users Model Tests', () => {
+describe('Users Model Tests', function() {
   describe('createUser', function() {
       let params = {
       username: 'test-user',
@@ -15,7 +15,7 @@ describe('Users Model Tests', () => {
       lastname: 'test-last'
     };
 
-    beforeEach(function() {
+    before(function() {
       // clear out db tables;
       return Promise.using(DB.getConnection(), connection => {
         connection.query('TRUNCATE TABLE users;');
@@ -26,33 +26,31 @@ describe('Users Model Tests', () => {
     it('should create a new user in the users table', function() {
       return users.createUser(params)
       .then(function(userResult) {
-        expect(userResult).to.deep.equal({
+        return expect(userResult).to.deep.equal({
             id: 1,
             username: 'test-user',
             firstName: 'test-first',
             lastName: 'test-last'
           });
-        return Promise.resolve();     
       })
       .catch(function(err) {
-        return Promise.reject(err);
+        return Promise.reject();
       });
     });
 
   it('should return user if that user already exists', function() {
       return users.createUser(params)
       .then(function(userResult) {
-        expect(userResult).to.deep.equal({
+        return expect(userResult).to.deep.equal({
           id: 1,
           username: 'test-user',
           firstName: 'test-first',
           lastName: 'test-last'
         });
-        return Promise.resolve();
       })
       .catch(function(err) {
-        return Promise.reject(err);
-      })
+        return Promise.reject();
+      });
     });
   });
 
@@ -70,12 +68,25 @@ describe('Users Model Tests', () => {
     it('should get a user by their username', function() {
       return users.getUserByUsername('test-user2')
       .then(userResult => {
-        expect(userResult).to.deep.equal({
-          id: 2, 
+        return expect(userResult).to.deep.equal({
+          id: 3, 
           username: 'test-user2', 
           firstName: 'test-first2', 
           lastName: 'test-last2'
         });
+      })
+      .catch(function(err) {
+        return Promise.reject();
+      });
+    });
+
+    it('should return an empty result if user not found', function() {
+      return users.getUserByUsername('test-user12345')
+      .then(userResult => {
+        return expect(userResult).to.deep.equal({});
+      })
+      .catch(function(err) {
+        return Promise.reject();
       });
     });
   });
@@ -92,14 +103,27 @@ describe('Users Model Tests', () => {
     });
 
     it('should get a user by their id', function() {
-      return users.getUserById(3)
+      return users.getUserById(4)
       .then(userResult => {
-        expect(userResult).to.deep.equal({
-          id: 3, 
+        return expect(userResult).to.deep.equal({
+          id: 4, 
           username: 'test-user3', 
           firstName: 'test-first3', 
           lastName: 'test-last3'
         });
+      })
+      .catch(function(err) {
+        return Promise.reject();
+      });
+    });
+
+    it('should return an empty result if user not found', function() {
+      return users.getUserByUsername('test-user12345')
+      .then(userResult => {
+        return expect(userResult).to.deep.equal({});
+      })
+      .catch(function(err) {
+        return Promise.reject();
       });
     });
   });

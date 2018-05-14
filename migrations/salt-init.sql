@@ -55,7 +55,7 @@ SHOW WARNINGS;
 
 INSERT INTO currencies (`name`,`fsym`) VALUES ("US Dollar", "USD");
 INSERT INTO currencies (`name`, `fsym`) VALUES ("Bitcoin", "BTC");
-INSERT INTO currencies (`name`, `fsym`) VALUES ("Litecoin", "LTC");
+INSERT INTO currencies (`name`, `fsym`) VALUES ("Litecoin", "LCT");
 INSERT INTO currencies (`name`, `fsym`) VALUES ("Dogecoin", "DOGE");
 INSERT INTO currencies (`name`, `fsym`) VALUES ("Monero", "XMR");
 SHOW WARNINGS;

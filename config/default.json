@@ -3,7 +3,7 @@
     "host": "localhost",
     "name": "salt"
   },
-  "fsym": "BTC,LCT,DOGE,XMR",
+  "fsym": "USD,BTC,LCT,DOGE,XMR",
   "tsym": "USD,BTC",
   "startingAmount": 10000.00
 }

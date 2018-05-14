@@ -17,10 +17,16 @@ app.get('/', (req, res, next) => {
   res.send('Hello World!');
 });
 
+// route to get current prices
 app.get('/prices', prices.getCurrentPrices);
+
+// routes for users
+app.get('/users/:username', users.getUser);
 app.post('/users', users.createUser);
-app.get('/portfolio', portfolio.getPortfolio);
-app.get('/orders', orders.getOrders);
+app.get('/users/:user_id/portfolio', users.getPortfolio);
+app.get('/users/:user_id/orders', users.getOrders);
+
+// route to create a new order
 app.post('/orders', orders.createOrder);
 
 app.listen('3000', function() {

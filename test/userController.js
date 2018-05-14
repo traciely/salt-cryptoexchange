@@ -9,7 +9,37 @@ let app = require('../app.js');
 let usersModel = require('../models/users.js');
 
 describe("User Controller Tests", function() {
-  describe("/POST createUser", function() {
+  describe("/GET user (getUser)", function() {
+    it('should return a 404 if no username exists with that name', function() {
+      return chai.request(app)
+      .get('/users/test-user12345')
+      .then(function(res) {
+        return expect(res).to.have.status(404);
+      })
+      .catch(function(err) {
+        return Promise.reject();
+      });
+    });
+
+    it('should return data if a user exists', function() {
+      return chai.request(app)
+      .get('/users/test-user')
+      .then(function(res) {
+        expect(res).to.have.status(200);
+        expect(res.body).to.deep.equal({
+          id: 1,
+          username: 'test-user',
+          firstName: 'test-first',
+          lastName: 'test-last'
+        });
+      })
+      .catch(function(err) {
+        return Promise.reject();
+      });
+    });
+  });
+
+  describe("/POST user (createUser)", function() {
     let postBody;
     let usersModelStub;
     before(function() {
@@ -41,7 +71,10 @@ describe("User Controller Tests", function() {
       .type('form')
       .send(postBody)
       .then(function(res) {
-        expect(res).to.have.status(400);
+        return expect(res).to.have.status(400);
+      })
+      .catch(function(err) {
+        return Promise.reject();
       });
     });
     it("should return a 400 if no first name is passed in", function() {
@@ -51,7 +84,10 @@ describe("User Controller Tests", function() {
       .type('form')
       .send(postBody)
       .then(function(res) {
-        expect(res).to.have.status(400);
+        return expect(res).to.have.status(400);
+      })
+      .catch(function(err) {
+        return Promise.reject();
       });
     });
     it("should return a 400 if no last name is passed in", function() {
@@ -61,7 +97,10 @@ describe("User Controller Tests", function() {
       .type('form')
       .send(postBody)
       .then(function(res) {
-        expect(res).to.have.status(400);
+        return expect(res).to.have.status(400);
+      })
+      .catch(function(err) {
+        return Promise.reject();
       });
     });
 
@@ -71,7 +110,10 @@ describe("User Controller Tests", function() {
       .type('form')
       .send(postBody)
       .then(function(res) {
-        expect(res).to.have.status(201);
+        return expect(res).to.have.status(201);
+      })
+      .catch(function(err) {
+        return Promise.reject();
       });
     })
   });
