@@ -16,8 +16,8 @@ exports.getPortfolioByUserId = function getPortfolioByUserId(userId) {
     return Promise.all(promises)
     .then(results => {
       let returnPortfolio = {
-        TotalInUSD: 0
-        items = []
+        TotalInUSD: 0,
+        items: []
       };
       let portfolioResults = results[0];
       let prices = results[1];
@@ -33,6 +33,22 @@ exports.getPortfolioByUserId = function getPortfolioByUserId(userId) {
         returnPortfolio.items.push(portfolioItem);
       });
       return Promise.resolve(returnPortfolio);
+    })
+    .catch(err => {
+      return Promise.reject(err);
+    });
+  });
+}
+
+exports.updateUserPortfolio = function updateUserPortfolio(userId, toCurrencyId, fromCurrencyId, amount) {
+  return Promise.using(DB.getConnection(), connection => {
+    let promises = [
+      connection.query('UPDATE portfolio SET amount = (amount - ?) WHERE user_id = ? AND currency_id = ?', amount, userId, fromCurrencyId),
+      connection.query('UPDATE portfolio SET amount = (amount + ?) WHERE user_id = ? AND currency_id = ?', amount, userId, toCurrencyId)
+    ];
+    return Promise.all(promises)
+    .then(results => {
+      return Promise.resolve(results);
     })
     .catch(err => {
       return Promise.reject(err);

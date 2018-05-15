@@ -5,14 +5,13 @@ exports.getCurrencies = function getCurrencies() {
   return Promise.using(DB.getConnection(), connection => {
     return connection.query('SELECT id, fsym FROM currencies')
     .then(currencyResults => {
-      let currencies = [];
+      let currencies = {};
       currencyResults.forEach(currency => {
-        currencies.push({
+        currencies[currency.fsym] = {
           id: currency.id,
           fsym: currency.fsym
-        });
-      })
-      // return currencies;
+        };
+      });
       return Promise.resolve(currencies);
     })
     .catch(err => {

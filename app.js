@@ -3,7 +3,6 @@ let bodyParser = require('body-parser');
 
 let app = express();
 let prices = require('./controllers/prices.js');
-let portfolio = require('./controllers/portfolio.js');
 let orders = require('./controllers/orders.js');
 let users = require('./controllers/users.js');
 
