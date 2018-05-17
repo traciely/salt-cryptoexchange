@@ -41,11 +41,6 @@ describe('Portfolio Model Tests', function() {
           BTC: 0.02376
         }
       });
-
-      // usersModel.createUser(params)
-      // .then(userResults => {
-      //   userInfo = userResults;
-      // });
     });
 
     after(function() {
@@ -61,35 +56,35 @@ describe('Portfolio Model Tests', function() {
             {
               name: 'US Dollar',
               fsym: 'USD',
-              id: 1,
+              currency_id: 1,
               amount: 10000.00,
               BTCPrice: 10000.00 * 0.0001157
             },
             {
               name: 'Bitcoin',
               fsym: 'BTC',
-              id: 2,
+              currency_id: 2,
               amount: 0,
               BTCPrice: 0
             },
             {
               name: 'Litecoin',
               fsym: 'LCT',
-              id: 3,
+              currency_id: 3,
               amount: 0,
               BTCPrice: 0
             },
             {
               name: 'Dogecoin',
               fsym: 'DOGE',
-              id: 4,
+              currency_id: 4,
               amount: 0,
               BTCPrice: 0
             },
             {
               name: 'Monero',
               fsym: 'XMR',
-              id: 5,
+              currency_id: 5,
               amount: 0,
               BTCPrice: 0
             }
@@ -98,7 +93,7 @@ describe('Portfolio Model Tests', function() {
         return expect(portfolioResults).to.deep.equal(expectedResults);
       })
       .catch(function(err) {
-        return Promise.reject();
+        return Promise.reject(err);
       });
     });
   });

@@ -55,12 +55,12 @@ exports.createUser = function createUser(params) {
         return currenciesModel.getCurrencies()
         .then(currencyResults => {
           let currencyInserts = [];
-          for((key, value) in currencyResults) {
+          for(key in currencyResults) {
           // currencyResults.forEach(currency => {
             let currencyArgs = {
               user_id: userId,
-              currency_id: value.id,
-              amount: value.fsym == 'USD' ? config.startingAmount : 0.00
+              currency_id: currencyResults[key].id,
+              amount: currencyResults[key].fsym == 'USD' ? config.startingAmount : 0.00
             };
             currencyInserts.push(connection.query('INSERT INTO user_currency_totals SET ?', currencyArgs));
           };

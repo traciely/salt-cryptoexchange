@@ -32,10 +32,10 @@ describe('Currencies Model Tests', function() {
 
       return currencies.getCurrencies()
       .then(currencyResults => {
-        return expect(currencyResults).to.have.deep.members(results);
+        return expect(currencyResults).to.have.deep.equal(results);
       })
       .catch(function(err) {
-        return Promise.reject();
+        return Promise.reject(err);
       });
     });
   });
